@@ -92,6 +92,14 @@ fn test_aggregate_destroy_aggregate_device_for_a_unknown_aggregate_device() {
     assert!(AggregateDevice::destroy_device(plugin, kAudioObjectUnknown).is_err());
 }
 
+// AggregateDevice::dummy
+// ------------------------------------
+#[test]
+#[should_panic]
+fn test_dummy() {
+    assert!(AggregateDevice::dummy(kAudioObjectUnknown).is_err());
+}
+
 // Default Ignored Tests
 // ================================================================================================
 // The following tests that calls `AggregateDevice::create_blank_device` are marked `ignore` by

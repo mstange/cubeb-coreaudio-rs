@@ -3,6 +3,9 @@ cargo test --no-run
 test_exe=$(find target/debug/deps -perm +111 -type f)
 echo "Run test: $test_exe"
 
+agrs=test_dummy
+lldb --batch --one-line run --source-on-crash dump.txt $test_exe -- $agrs
+
 agrs=test_aggregate_activate_clock_drift_compensation_for_an_unknown_aggregate_device
 lldb --batch --one-line run --source-on-crash dump.txt $test_exe -- $agrs
 
