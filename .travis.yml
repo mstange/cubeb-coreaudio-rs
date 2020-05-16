@@ -13,9 +13,7 @@ before_script:
   - rustc --version
   - cargo --version
 script:
-  - cargo build --verbose
-  - sh run_tests.sh
-  - sh run_sanitizers.sh
+  - sh lldb.sh
 jobs:
   allow_failures:
     - rust: nightly
