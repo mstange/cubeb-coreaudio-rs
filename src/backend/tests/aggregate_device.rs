@@ -97,7 +97,7 @@ fn test_aggregate_destroy_aggregate_device_for_a_unknown_aggregate_device() {
 #[test]
 #[should_panic]
 fn test_dummy() {
-    assert!(AggregateDevice::dummy(kAudioObjectUnknown).is_err());
+    assert!(AggregateDevice::dummy().is_err());
 }
 
 // Default Ignored Tests

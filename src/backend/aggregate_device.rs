@@ -596,8 +596,8 @@ impl AggregateDevice {
         Ok(())
     }
 
-    pub fn dummy(id: AudioObjectID) -> std::result::Result<(), OSStatus> {
-        assert_ne!(id, kAudioObjectUnknown);
+    pub fn dummy() -> std::result::Result<(), u32> {
+        panic!();
         Ok(())
     }
 }
