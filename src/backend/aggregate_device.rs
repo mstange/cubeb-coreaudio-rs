@@ -596,9 +596,8 @@ impl AggregateDevice {
         Ok(())
     }
 
-    pub fn dummy() -> std::result::Result<(), u32> {
+    pub fn dummy() {
         panic!();
-        Ok(())
     }
 }
 
