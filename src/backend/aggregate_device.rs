@@ -291,17 +291,14 @@ impl AggregateDevice {
             return Err(status);
         }
 
-        let _teardown = finally(|| {
-            assert_eq!(
-                audio_object_remove_property_listener(
-                    device_id,
-                    &address,
-                    devices_changed_callback,
-                    data_ptr as *mut c_void,
-                ),
-                NO_ERR
-            );
-        });
+        let remove_listener = || -> OSStatus {
+            audio_object_remove_property_listener(
+                device_id,
+                &address,
+                devices_changed_callback,
+                data_ptr as *mut c_void,
+            )
+        };
 
         Self::set_sub_devices(device_id, input_id, output_id)?;
 
@@ -319,6 +316,14 @@ impl AggregateDevice {
                 );
             }
             if *dev != device_id {
+                let status = remove_listener();
+                if status != NO_ERR {
+                    cubeb_log!(
+                        "Fail to remove listener of aggregate device {}. Error {}",
+                        device_id,
+                        status
+                    );
+                }
                 return Err(APPLE_EVENT_TIMEOUT);
             }
         }
@@ -336,6 +341,9 @@ impl AggregateDevice {
             cvar.notify_one();
             NO_ERR
         }
+
+        let status = remove_listener();
+        assert_eq!(status, NO_ERR);
 
         Ok(())
     }
