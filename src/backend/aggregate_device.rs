@@ -283,6 +283,11 @@ impl AggregateDevice {
             data_ptr as *mut c_void,
         );
         if status != NO_ERR {
+            cubeb_log!(
+                "Fail to listen property-change of aggregate device {}. Error {}",
+                device_id,
+                status
+            );
             return Err(status);
         }
 
